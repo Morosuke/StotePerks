@@ -1,4 +1,4 @@
-ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/stote_perks/perks_iureka.lua" )
+ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/stote_perks/files/scripts/perks_iureka.lua" )
 dofile( "data/scripts/perks/perk.lua" )
 dofile( "data/scripts/perks/perk_list.lua" )
 
@@ -35,56 +35,63 @@ end
 function OnPlayerSpawned( player_entity ) -- this runs when player entity has been created
 
 --[[
-	-- spawn the perk
-	local perk1 = "CRITICAL_HIT"  --addto list
-	local perk2 = "BREATH_UNDERWATER"
-	local perk3 = "EXTRA_MONEY"
-	local perk4 = "EXTRA_MONEY_TRICK_KILL"
-	local perk5 = "HOVER_BOOST"
-	local perk6 = "MOVEMENT_FASTER"  -- add to list
-	local perk7 = "LOW_GRAVITY"  -- add to list
-	local perk8 = "SPEED_DIVER" --FASTER SWIMMING
-	local perk9 = "REPELLING_CAPE"
-	local perk10 = "EXPLODING_CORPSES"  -- add to list
-	local perk11 = "SAVING_GRACE"
-	local perk12 = "INVISIBILITY"
-	local perk13 = "GLOBAL_GORE" --MORE BLOOD  -- add to list
-	local perk14 = "REMOVE_FOG_OF_WAR" --SEE ALL  -- add to list
-	local perk15 = "VAMPIRISM"  -- add to list
-	local perk16 = "EXTRA_HP"
-	local perk17 = "HEARTS_MORE_EXTRA_HP"
-	local perk18 = "GLASS_CANNON"  -- add to list
-	local perk19 = "RESPAWN" --EXTRA LIFE
-	local perk20 = "WORM_ATTRACTOR"  -- add to list
-	local perk21 = "WORM_DETRACTOR"
-	local perk22 = "PROTECTION_FIRE"
-	local perk23 = "PROTECTION_RADIOACTIVITY"
-	local perk24 = "PROTECTION_EXPLOSION"
-	local perk25 = "PROTECTION_MELEE"  -- add to list
-	local perk26 = "PROTECTION_ELECTRICITY"  -- add to list
-	local perk27 = "TELEPORTITIS"  -- add to list
-	local perk28 = "STAINLESS_ARMOUR"
-	local perk29 = "EDIT_WANDS_EVERYWHERE"  -- add to list
-	local perk30 = "ABILITY_ACTIONS_MATERIALIZED" --THROWABLE BOMBS
-	local perk31 = "PROJECTILE_HOMING"
-	local perk32 = "PROJECTILE_HOMING_SHOOTER" --BOOMERANG
-	local perk33 = "FREEZE_FIELD"  -- add to list
-	local perk34 = "DISSOLVE_POWDERS"  -- add to list
-	local perk35 = "BLEED_SLIME"
-	local perk36 = "BLEED_OIL"
-	local perk37 = "SHIELD"
-	local perk38 = "REVENGE_EXPLOSION"  -- add to list
-	local perk39 = "REVENGE_TENTACLE"  -- add to list
-	local perk40 = "ELECTRICITY"
-	local perk41 = "ATTRACT_ITEMS"  -- add to list
-	local perk42 = "EXTRA_KNOCKBACK"  -- add to list
-	local perk43 = "LOWER_SPREAD"
-	local perk44 = "BOUNCE"
-	local perk45 = "MYSTERY_EGGPLANT" --???
-	local perk46 = "EXTRA_PERK"
-	local perk47 = "PERK_LOTTERY"
-	local perk48 = "GENOME_MORE_HATRED"
-	local perk49 = "GENOME_MORE_LOVE"
+	-- default perks
+	"CRITICAL_HIT"  --addto list
+	"BREATH_UNDERWATER"
+	"EXTRA_MONEY"
+	"EXTRA_MONEY_TRICK_KILL"
+	"HOVER_BOOST"
+	"MOVEMENT_FASTER"  -- add to list
+	"LOW_GRAVITY"  -- add to list
+	"SPEED_DIVER" --FASTER SWIMMING
+	"STRONG_KICK"
+	"REPELLING_CAPE"
+	"EXPLODING_CORPSES"  -- add to list
+	"SAVING_GRACE"
+	"INVISIBILITY"
+	"GLOBAL_GORE" --MORE BLOOD  -- add to list
+	"REMOVE_FOG_OF_WAR" --SEE ALL  -- add to list
+	"VAMPIRISM"  -- add to list
+	"EXTRA_HP"
+	"HEARTS_MORE_EXTRA_HP"
+	"GLASS_CANNON"  -- add to list
+	"RESPAWN" --EXTRA LIFE
+	"WORM_ATTRACTOR"  -- add to list
+	"WORM_DETRACTOR"
+	"PROTECTION_FIRE"
+	"PROTECTION_RADIOACTIVITY"
+	"PROTECTION_EXPLOSION"
+	"PROTECTION_MELEE"  -- add to list
+	"PROTECTION_ELECTRICITY"  -- add to list
+	"TELEPORTITIS"  -- add to list
+	"STAINLESS_ARMOUR"
+	"EDIT_WANDS_EVERYWHERE"  -- add to list
+	"ABILITY_ACTIONS_MATERIALIZED" --THROWABLE BOMBS
+	"PROJECTILE_HOMING"
+	"PROJECTILE_HOMING_SHOOTER" --BOOMERANG
+	"FREEZE_FIELD"  -- add to list
+	"DISSOLVE_POWDERS"  -- add to list
+	"BLEED_SLIME"
+	"BLEED_OIL"
+	"SHIELD"
+	"REVENGE_EXPLOSION"  -- add to list
+	"REVENGE_TENTACLE"  -- add to list
+	"ATTACK_FOOT"
+	"PLAGUE_RATS"
+	"ELECTRICITY"
+	"ATTRACT_ITEMS"  -- add to list
+	"EXTRA_KNOCKBACK"  -- add to list
+	"LOWER_SPREAD"
+	"BOUNCE"
+	"MYSTERY_EGGPLANT" --???
+	"EXTRA_PERK"
+	"PERK_LOTTERY"
+	"GENOME_MORE_HATRED"
+	"GENOME_MORE_LOVE"
+
+	--custom perks
+	"REVENGE_NUKE_MAYBE"
+
 ]]--
 
 	if tonumber(StatsGetValue("playtime")) > 1 then
@@ -147,7 +154,6 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 			end
 		end
 	end
-  -- add test perk
   --local p_entity2 = perk_spawn( x, y, "REVENGE_NUKE_MAYBE")
   --if ( p_entity2 ~= nil ) then
   --  perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
