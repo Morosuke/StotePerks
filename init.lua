@@ -1,3 +1,4 @@
+ModLuaFileAppend( "data/scripts/perks/perk_list.lua", "mods/stote_perks/perks_iureka.lua" )
 dofile( "data/scripts/perks/perk.lua" )
 dofile( "data/scripts/perks/perk_list.lua" )
 
@@ -144,4 +145,11 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 		end
 	end
+	
+	-- add test perk
+	--local perk = perk_list[tonumber(perks[42])] --This should be the perk ID (or string name) of the perk you want to select
+  --local p_entity2 = perk_spawn( x, y, "REVENGE_NUKE_MAYBE")
+  --if ( p_entity2 ~= nil ) then
+  --  perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
+  --end
 end
