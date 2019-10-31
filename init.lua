@@ -35,6 +35,7 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 --[[
 	-- spawn the perk
+	-- somewhere between 2-8 is the new plague rats
 	local perk1 = "CRITICAL_HIT"
 	local perk2 = "BREATH_UNDERWATER"
 	local perk3 = "EXTRA_MONEY"
