@@ -171,8 +171,18 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 			end
 		end
 	end
-  local p_entity2 = perk_spawn( x, y, "SPREAD_INCREASE")
-  if ( p_entity2 ~= nil ) then
-    perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
-  end
+	--[[ Theres always room for more love in Stoat perks ]]--
+	local perks = { "GENOME_MORE_LOVE" } -- add numbers to this array to add new perk at the start of the game
+	for i,p in ipairs( perks ) do
+		local perk = perk_list[p]
+		local p_entity = perk_spawn( x, y, perk.id )
+		if ( p_entity ~= nil ) then
+			perk_pickup( p_entity, player_entity, EntityGetName( p_entity ), false, false )
+		end
+	end
+
+    --local p_entity2 = perk_spawn( x, y, "SPREAD_INCREASE")
+    --if ( p_entity2 ~= nil ) then
+    --perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
+    --end
 end
