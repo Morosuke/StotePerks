@@ -91,6 +91,13 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 	--custom perks
 	"REVENGE_NUKE_MAYBE"
+	"REVENGE_TENTACLE_PORTAL"
+	"REVENGE_EARTH_SPIRIT"
+	"MOVEMENT_SLOWER"
+	"EVAPORATE_BLOOD"
+
+
+	"SPREAD_INCREASE",
 
 ]]--
 
@@ -107,7 +114,8 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 	 "REMOVE_FOG_OF_WAR", "VAMPIRISM", "GLASS_CANNON", "WORM_ATTRACTOR", "TELEPORTITIS",
 	 "EDIT_WANDS_EVERYWHERE", "FREEZE_FIELD", "DISSOLVE_POWDERS", "REVENGE_EXPLOSION",
 	  "REVENGE_TENTACLE", "ATTRACT_ITEMS", "EXTRA_KNOCKBACK", "REVENGE_NUKE_MAYBE", 
-	  "BLEED_OIL", "ELECTRICITY" } 
+	  "BLEED_OIL", "ELECTRICITY", "REVENGE_TENTACLE_PORTAL", "REVENGE_EARTH_SPIRIT",
+	  "MOVEMENT_SLOWER", "EVAPORATE_BLOOD"} 
 	-- add perk ID to this array to add new perk to the pool for the start of the game
 	local added_perk_list = {}
 	local total_perks_in_custom_list = #perks
@@ -127,13 +135,22 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 				flag = 0
 			end	
 		else
-			if perks[perk_id_to_add] == "VAMPIRISM" then --protect from having VAMPIRISM and FREEZE_FIELD at the same time
-				if has_value(added_perk_list, "FREEZE_FIELD") then
+			--protect from having VAMPIRISM and FREEZE_FIELD or EVAPORATE_BLOOD at the same time
+			if perks[perk_id_to_add] == "VAMPIRISM" then 
+				if has_value(added_perk_list, "FREEZE_FIELD") or has_value(added_perk_list, "EVAPORATE_BLOOD")then
 					flag = 0
 				else
 					flag = 1
 				end
-			elseif perks[perk_id_to_add] == "FREEZE_FIELD" then --protect from having FREEZE_FIELD and VAMPIRISM at the same time
+			--protect from having FREEZE_FIELD and VAMPIRISM at the same time
+			elseif perks[perk_id_to_add] == "FREEZE_FIELD" then 
+				if has_value(added_perk_list, "VAMPIRISM") then
+					flag = 0
+				else
+					flag = 1
+				end
+			--protect from having EVAPORATE_BLOOD and VAMPIRISM at the same time
+			elseif perks[perk_id_to_add] == "EVAPORATE_BLOOD" then 
 				if has_value(added_perk_list, "VAMPIRISM") then
 					flag = 0
 				else
@@ -154,8 +171,18 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 			end
 		end
 	end
-  --local p_entity2 = perk_spawn( x, y, "REVENGE_NUKE_MAYBE")
-  --if ( p_entity2 ~= nil ) then
-  --  perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
-  --end
+	--[[ Theres always room for more love in Stoat perks ]]--
+	local perks = { "GENOME_MORE_LOVE" } -- add numbers to this array to add new perk at the start of the game
+	for i,p in ipairs( perks ) do
+		local perk = perk_list[p]
+		local p_entity = perk_spawn( x, y, perk.id )
+		if ( p_entity ~= nil ) then
+			perk_pickup( p_entity, player_entity, EntityGetName( p_entity ), false, false )
+		end
+	end
+
+    --local p_entity2 = perk_spawn( x, y, "SPREAD_INCREASE")
+    --if ( p_entity2 ~= nil ) then
+    --perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
+    --end
 end
