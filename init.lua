@@ -91,6 +91,13 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 	--custom perks
 	"REVENGE_NUKE_MAYBE"
+	"REVENGE_TENTACLE_PORTAL"
+	"REVENGE_EARTH_SPIRIT"
+	"MOVEMENT_SLOWER"
+	"EVAPORATE_BLOOD"
+
+
+	"SPREAD_INCREASE",
 
 ]]--
 
@@ -107,7 +114,8 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 	 "REMOVE_FOG_OF_WAR", "VAMPIRISM", "GLASS_CANNON", "WORM_ATTRACTOR", "TELEPORTITIS",
 	 "EDIT_WANDS_EVERYWHERE", "FREEZE_FIELD", "DISSOLVE_POWDERS", "REVENGE_EXPLOSION",
 	  "REVENGE_TENTACLE", "ATTRACT_ITEMS", "EXTRA_KNOCKBACK", "REVENGE_NUKE_MAYBE", 
-	  "BLEED_OIL", "ELECTRICITY" } 
+	  "BLEED_OIL", "ELECTRICITY", "REVENGE_TENTACLE_PORTAL", "REVENGE_EARTH_SPIRIT",
+	  "MOVEMENT_SLOWER", "EVAPORATE_BLOOD", "SPREAD_INCREASE"} 
 	-- add perk ID to this array to add new perk to the pool for the start of the game
 	local added_perk_list = {}
 	local total_perks_in_custom_list = #perks
@@ -154,8 +162,8 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 			end
 		end
 	end
-  --local p_entity2 = perk_spawn( x, y, "REVENGE_NUKE_MAYBE")
-  --if ( p_entity2 ~= nil ) then
-  --  perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
-  --end
+  local p_entity2 = perk_spawn( x, y, "SPREAD_INCREASE")
+  if ( p_entity2 ~= nil ) then
+    perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
+  end
 end
