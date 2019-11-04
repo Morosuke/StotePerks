@@ -22,8 +22,8 @@ table.insert( perk_list,
   id = "REVENGE_TENTACLE_PORTAL",
   ui_name = "Revenge Tentacle Portal",
   ui_description = ".",
-  ui_icon = "mods/stote_perks/files/ui/test_perk.png",
-  perk_icon = "mods/stote_perks/files/ig/test_perk.png",
+  ui_icon = "mods/stote_perks/files/ui/tentacle_portal.png",
+  perk_icon = "mods/stote_perks/files/ig/tentacle_portal.png",
   func = function( entity_perk_item, entity_who_picked, item_name )
     EntityAddComponent( entity_who_picked, "LuaComponent", 
     { 
@@ -38,8 +38,8 @@ table.insert( perk_list,
   id = "REVENGE_EARTH_SPIRIT",
   ui_name = "Revenge Earth Spirit",
   ui_description = ".",
-  ui_icon = "mods/stote_perks/files/ui/test_perk.png",
-  perk_icon = "mods/stote_perks/files/ig/test_perk.png",
+  ui_icon = "mods/stote_perks/files/ui/pebble.png",
+  perk_icon = "mods/stote_perks/files/ig/pebble.png",
 
   func = function( entity_perk_item, entity_who_picked, item_name )
     EntityAddComponent( entity_who_picked, "LuaComponent", 
@@ -55,8 +55,8 @@ table.insert( perk_list,
   id = "MOVEMENT_SLOWER",
   ui_name = "Slower Movement",
   ui_description = "You now walk slower.",
-  ui_icon = "mods/stote_perks/files/ui/test_perk.png",
-  perk_icon = "mods/stote_perks/files/ig/test_perk.png",
+  ui_icon = "mods/stote_perks/files/ui/movement_slower.png",
+  perk_icon = "mods/stote_perks/files/ig/movement_slower.png",
   game_effect = "MOVEMENT_SLOWER",
 })
 
@@ -67,8 +67,8 @@ table.insert( perk_list,
   id = "EVAPORATE_BLOOD",
   ui_name = "Evaporate Blood",
   ui_description = "All blood will evaporate as you get near.",
-  ui_icon = "mods/stote_perks/files/ui/test_perk.png",
-  perk_icon = "mods/stote_perks/files/ig/test_perk.png",
+  ui_icon = "mods/stote_perks/files/ui/evaporate_blood.png",
+  perk_icon = "mods/stote_perks/files/ig/evaporate_blood.png",
   func = function( entity_perk_item, entity_who_picked, item_name )
     local x,y = EntityGetTransform( entity_who_picked )
     local child_id = EntityLoad( "mods/stote_perks/files/entities/evaporate_blood.xml", x, y )
