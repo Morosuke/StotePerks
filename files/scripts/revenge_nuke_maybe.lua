@@ -5,7 +5,7 @@ function damage_received( damage, desc, entity_who_caused, is_fatal )
 	local pos_x, pos_y = EntityGetTransform( entity_id )
 	
 	local fuse_cut = Random(1, 100)
-  if( fuse_cut ~= 1) then return end
+    if( fuse_cut ~= 1) then return end
 	if( entity_who_caused == entity_id ) then return end
   
 	-- check that we're only shooting every 500 frames
