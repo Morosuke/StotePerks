@@ -101,6 +101,37 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 ]]--
 
+local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' -- You will need this for encoding/decoding
+-- encoding
+	function enc(data)
+	    return ((data:gsub('.', function(x) 
+	        local r,b='',x:byte()
+	        for i=8,1,-1 do r=r..(b%2^i-b%2^(i-1)>0 and '1' or '0') end
+	        return r;
+	    end)..'0000'):gsub('%d%d%d?%d?%d?%d?', function(x)
+	        if (#x < 6) then return '' end
+	        local c=0
+	        for i=1,6 do c=c+(x:sub(i,i)=='1' and 2^(6-i) or 0) end
+	        return b:sub(c+1,c+1)
+	    end)..({ '', '==', '=' })[#data%3+1])
+	end
+
+-- decoding
+	function dec(data)
+	    data = string.gsub(data, '[^'..b..'=]', '')
+	    return (data:gsub('.', function(x)
+	        if (x == '=') then return '' end
+	        local r,f='',(b:find(x)-1)
+	        for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end
+	        return r;
+	    end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x)
+	        if (#x ~= 8) then return '' end
+	        local c=0
+	        for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end
+	            return string.char(c)
+	    end))
+	end
+
 	if tonumber(StatsGetValue("playtime")) > 1 then
 		return
 	end
@@ -122,6 +153,18 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 
 	local num_perks_to_add = Random(4, 9)
 
+	--[[ Theres always room for more love in Stoat perks ]]--
+	local stotely_perks = { "GENOME_MORE_LOVE" } -- these are always fucking required for proper levels of stote fuckery
+	for i,p in ipairs( stotely_perks ) do
+		local perk = perk_list[p]
+		local p_entity = perk_spawn( x, y, perk.id )
+		if ( p_entity ~= nil ) then
+			perk_pickup( p_entity, player_entity, EntityGetName( p_entity ), false, false )
+			table.insert(added_perk_list, perk)
+		end
+	end
+
+	--[[ Normal StotePerks process ]]--
 	for i=1,num_perks_to_add, 1 do
 		local perk_id_to_add = Random(1, total_perks_in_custom_list)
       	local flag = -1
@@ -171,18 +214,14 @@ function OnPlayerSpawned( player_entity ) -- this runs when player entity has be
 			end
 		end
 	end
-	--[[ Theres always room for more love in Stoat perks ]]--
-	local perks = { "GENOME_MORE_LOVE" } -- add numbers to this array to add new perk at the start of the game
-	for i,p in ipairs( perks ) do
-		local perk = perk_list[p]
-		local p_entity = perk_spawn( x, y, perk.id )
-		if ( p_entity ~= nil ) then
-			perk_pickup( p_entity, player_entity, EntityGetName( p_entity ), false, false )
-		end
-	end
 
     --local p_entity2 = perk_spawn( x, y, "SPREAD_INCREASE")
     --if ( p_entity2 ~= nil ) then
     --perk_pickup( p_entity2, player_entity, EntityGetName( p_entity2 ), false, false )
     --end
+
+	--GamePrintImportant('Johnsons Jonson 32: Magical Orb Mishaps','Motions n` potions and Whitches n` Bitches')
+	local JJT = 'Sm9obnNvbnMgSm9uc29uIDMyOiBNYWdpY2FsIE9yYiBNaXNoYXBz'
+	local JJS = 'TW90aW9ucyBuYCBwb3Rpb25zIGFuZCBXaGl0Y2hlcyBuYCBCaXRjaGVz'
+	GamePrintImportant(dec(JJT),dec(JJS))
 end
